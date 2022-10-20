@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "member.model.Member">
+
+ 	<insert id="InsertMember">
+ 		insert into memb(num,name,id,password,email,hp,zipcode1,zipcode2,zipcode3,zipcode4)
+ 		values(meseq.nextval,#{name},#{id},#{password},#{email},#{hp,jdbcType=VARCHAR} ,#{zipcode1},
+ 		#{zipcode2},#{zipcode3},#{zipcode4}) 
+ 		<!-- 이거 안되면 위에 주제 정하면 됨 ,#{mpoint,jdbcType=VARCHAR}-->
+ 		<!-- 계속 Error setting null for parameter #6 with JdbcType OTHER . hp에서 에러난줄알았는데 zipcode가 값이 안넘어온 거였음
+ 			jsp에서 name=zipcode1 안넘겨서 그랬음. id만 적고 ㅠㅠㅠㅠㅠ-->
+ 	</insert>
+ 
+	<select id="GetMemberList" resultType="MyMember">
+		select * from memb
+		order by num desc
+	</select>
+
+	<select id="GetMember" resultType="MyMember">
+		select * from memb
+		where id = #{id}
+	</select>
+	
+	<select id="Idcheck" resultType="int">
+		select count(*) from memb
+		where id = #{id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>
+

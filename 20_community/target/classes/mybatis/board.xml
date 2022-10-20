@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "board.model.Board">
+
+	<insert id="InsertBoardInfo">
+		insert into bd 
+		values(bd_seq.nextval,#{writer},#{email},#{subject},#{passwd},
+		#{reg_date},#{readcount,jdbcType=VARCHAR},bd_seq.currval,
+		0,0,#{image},#{sports},#{content},#{ip})
+	</insert>
+	
+	<select id="GetTotalCount" resultType="int">
+		select count(*) from bd
+		<if test="whatColumn =='subject'" >
+			where subject like #{keyword}		
+		</if>
+		<if test="whatColumn =='writer'" >
+			where writer like #{keyword}		
+		</if>
+	</select>
+
+	<select id="GetAllBoard" resultType="MyBoard">
+		select * from bd
+		<if test="whatColumn =='subject'" >
+			where subject like #{keyword}		
+		</if>
+		<if test="whatColumn =='writer'" >
+			where writer like #{keyword}		
+		</if>
+		order by ref desc, re_step asc
+	</select>
+	
+	<update id="UpdateReadcount">
+		update bd
+		set readcount = readcount+1   
+		where num = #{num}
+	</update>
+	
+	<select id="GetArticle" resultType="MyBoard">
+		select * from bd
+		where num = #{num}
+	</select>
+	
+	<select id="BringPasswdArticle" resultType="String">
+		select passwd from bd
+		where num = #{num}
+	</select>
+	
+	<update id="UpdateArticle">
+		update bd
+		set sports=#{sports}, writer=#{writer}, subject=#{subject}, email=#{email},
+			content=#{content}, image=#{image}
+		where num = #{num}	
+	</update>
+	
+	<delete id="DeleteArticle">
+		delete bd
+		where num = #{num}
+	</delete>
+	
+	<insert id="InsertReply">
+		insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,image,sports,content,ip)
+		values(bd_seq.nextval,#{writer},#{email},#{subject},#{passwd},
+		sysdate,#{ref},  <!-- 조회수지우고, ref는 currval현재값에서 그냥 ref로 re_step과 level은 +1씩 --> 
+		#{re_step}+1,#{re_level}+1,#{image},#{sports},#{content},#{ip})
+	</insert>
+	
+	
+	
+	
+	
+	
+</mapper>

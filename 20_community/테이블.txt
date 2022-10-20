@@ -1,0 +1,961 @@
+운동 커뮤니티
+회원가입, 게시판 우선 만들어보고 생각할까..
+	
+중복체크. 
+회원정보 검색?
+게시판 만들기
+	
+																																																
+--memb																																																
+	drop sequence meseq;																																															
+																																																
+	create sequence meseq																																															
+	increment by 1																																															
+	start with 1																																															
+	minvalue 0																																															
+	maxvalue 1000000;																																															
+																																																
+																																																
+	>>>>외래 키에 의해 참조되는 고유/기본 키가 테이블에 있습니다																																															
+	DROP TABLE memb CASCADE CONSTRAINTS;																																															
+																																																
+	drop table memb;																																															
+																																																
+	create table memb(																																															
+		num number, -- 넘버																																														
+		name varchar2(30), --닉네임																																														
+		id varchar2(30) primary key, -- 아이디																																														
+		password varchar2(30), --비밀번호																																														
+		email varchar2(30), --이메일																																																																																																																																									
+		hp varchar2(30), --핸드폰1																																																																																										
+		zipcode1 varchar2(50), --주소1																																														
+		zipcode2 varchar2(50), --주소2																																														
+		zipcode3 varchar2(50), --주소3																																														
+		zipcode4 varchar2(50), --주소4																																														
+		mpoint number default 0 -- 포인트																																																																																												
+	);																																															
+																																																
+	insert into memb values(meseq.nextval, '어드민', 'admin', '1234', 'admin@naver.com', '01012341234', '서울시', '구로구 구로동 12-3','중앙아파트','집앞',0);																																															
+	insert into memb values(meseq.nextval, '어드민2', 'admin2', '1234', 'admin2@naver.com', '01012341234', '서울시', '구로구 구로동 12-3','2층','집앞',0);																																															
+	insert into memb values(meseq.nextval, '김중앙', 'jung', '1234', 'jung@naver.com', '01011112222', '서울시', '마포구 신촌로 176', '5층','집앞',0);																																															
+	insert into memb values(meseq.nextval, '차은우', 'char', '1234', 'char@daum.net', '01010041004', '부산시', '해운대 반여로 7', '22층','집앞',0);																																															
+																																																
+																																																																																															
+	col num for 999																																															
+	col id for a6																																															
+	col name for a10																																															
+	col id for a15																																															
+	col password for a20																																															
+	col email1 for a10																																															
+	col email2 for a10																																															
+	col rrn1 for 9999																																															
+	col rrn2 for 999																																															
+	col rrn3 for 999																																															
+	col hp1 for 9999																																															
+	col hp2 for 9999																																															
+	col hp3 for 9999																																															
+	col zipcode1 for a10																																															
+	col zipcode2 for a10																																															
+	col zipcode3 for a10																																															
+	col zipcode4 for a10																																															
+	col mpoint for 9999																																															
+	col seller for 99																																															
+																																																
+	select * from memb;																																															
+	commit;
+																																																
+	
+drop table bd;
+
+create table bd( 
+	num number not null primary key, 
+	writer varchar2(20) not null, -- 작성자
+	email varchar2(20),
+	subject varchar2(50) not null,
+	passwd varchar2(15) not null,
+	reg_date date not null,
+	readcount int default 0,
+	ref number not null,
+	re_step number not null,
+	re_level number not null,
+	image  	varchar2(50),
+	sports varchar2(40) ,
+	content varchar2(100) not null,
+	ip varchar2(20) not null
+);
+
+drop sequence bd_seq;
+create sequence bd_seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 10000
+  nocache;
+  
+  
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a1','a1','a1','1234','2019-1-1',1,0,0,'내용1','127.0.0.1');
+
+
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a2','a2','a2','1234','2019-1-1',2,0,0,'내용2','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a21','a21','a21','1234','2019-1-1',2,4,1,'내용21','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a22','a22','a22','1234','2019-1-1',2,1,1,'내용22','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a221','a221','a221','1234','2019-1-1',2,3,2,'내용221','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a222','a222','a222','1234','2019-1-1',2,2,2,'내용222','127.0.0.1');
+
+
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a3','a3','a3','1234','2019-1-1',7,0,0,'내용3','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a31','a31','a31','1234','2019-1-1',7,6,1,'내용31','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a311','a311','a311','1234','2019-1-1',7,7,2,'내용311','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a32','a32','a32','1234','2019-1-1',7,2,1,'내용32','127.0.0.1');
+ 
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a321','a321','a321','1234','2019-1-1',7,5,2,'내용321','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a322','a322','a322','1234','2019-1-1',7,3,2,'내용322','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a3221','a3221','a3221','1234','2019-1-1',7,4,3,'내용3221','127.0.0.1');
+
+insert into bd(num,writer,email,subject,passwd,reg_date,ref,re_step,re_level,content,ip)
+values(bd_seq.nextval,'a33','a33','a33','1234','2019-1-1',7,1,1,'내용33','127.0.0.1');
+
+
+commit;
+	
+ select * from bd;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+																																																
+--orders																																																
+	-- 주문 테이블																																															
+	drop sequence seq_oid ;																																															
+	create sequence seq_oid start with 1 increment by 1 nocache ;																																															
+																																																
+	DROP TABLE orders CASCADE CONSTRAINTS;																																															
+	create table orders(																																															
+	orderid number primary key,  --주문(송장)번호																																															
+	memid varchar2(20) references members(id) on delete set null,--회원번호																																															
+	orderState varchar2(30) default '배송준비',																																															
+	orderdate date default sysdate --주문 일자																																															
+	);																																															
+																																																
+	insert into orders values(seq_oid.nextval,'jung','배송준비',sysdate);																																															
+	insert into orders values(seq_oid.nextval,'char','배송준비',sysdate);																																															
+	insert into orders values(seq_oid.nextval,'choi','배송준비',sysdate);																																															
+	--인서트 추가																																															
+	insert into orders values(seq_oid.nextval,'choi','배송준비','22/08/15');																																															
+	insert into orders values(seq_oid.nextval,'choi','배송준비','22/08/02');																																															
+																																																
+	col memid for a10																																															
+																																																
+	commit;																																															
+																																																
+	select * from orders;																																															
+																																																
+																																																
+--orderdetails																																																
+	--주문 상세 테이블																																															
+																																																
+	drop sequence seq_odid;																																															
+	create sequence seq_odid start with 1 increment by 1 nocache ;																																															
+																																																
+	drop table orderdetails CASCADE CONSTRAINTS;																																															
+	create table orderdetails(																																															
+	odid number primary key,  --숫자																																															
+	orderid number references orders(orderid) on delete cascade, --주문번호																																															
+	num number references alcohol(num) on delete set null , --상품번호																																															
+	qty number --주문 수량																																															
+	);																																															
+																																																
+	insert into orderdetails values(seq_odid.nextval,1,1,1);																																															
+	insert into orderdetails values(seq_odid.nextval,2,2,3);																																															
+	insert into orderdetails values(seq_odid.nextval,3,3,5);																																															
+	insert into orderdetails values(seq_odid.nextval,4,3,2);																																															
+	--인서트 추가																																															
+	insert into orderdetails values(seq_odid.nextval,4,4,2);																																															
+																																																
+																																																
+	commit;																																															
+																																																
+	select * from orderdetails;																																															
+--alcategory																																																
+																																																
+	drop sequence alc_seq;																																															
+	create sequence alc_seq																																															
+	increment by 1																																															
+	start with 1																																															
+	minvalue 1																																															
+	maxvalue 10000																																															
+	nocache;																																															
+																																																
+	drop table alcategory cascade constraints;																																															
+	create table alcategory(																																															
+		num number primary key,																																														
+		cate varchar2(50) not null --소주/증류수,리큐르,막걸리,약주/청주/과실주/기타주류																																														
+	);																																															
+																																																
+																																																
+	insert into alcategory																																															
+	values(alc_seq.nextval, '소주/증류수');																																															
+																																																
+	insert into alcategory																																															
+	values(alc_seq.nextval, '리큐르');																																															
+																																																
+	insert into alcategory																																															
+	values(alc_seq.nextval, '막걸리');																																															
+																																																
+	insert into alcategory																																															
+	values(alc_seq.nextval, '과실주');																																															
+																																																
+	commit;																																															
+																																																
+--sncategory																																																
+																																																
+	drop sequence snc_seq;																																															
+	create sequence snc_seq																																															
+	increment by 1																																															
+	start with 1																																															
+	minvalue 1																																															
+	maxvalue 10000																																															
+	nocache;																																															
+																																																
+	drop table sncategory cascade constraints;																																															
+	create table sncategory(																																															
+		num number primary key,																																														
+		cate1 varchar2(50) not null, --건식,습식																																														
+		cate2 varchar2(50) not null --과일/채소,유제품,육가공품,건어물,국물류																																														
+	);																																															
+																																																
+	insert into sncategory																																															
+	values(snc_seq.nextval, '건식', '육가공품');																																															
+																																																
+	insert into sncategory																																															
+	values(snc_seq.nextval, '건식', '건어물');																																															
+																																																
+	insert into sncategory																																															
+	values(snc_seq.nextval, '건식', '견과류');																																															
+																																																
+	insert into sncategory																																															
+	values(snc_seq.nextval, '습식', '육가공품');																																															
+																																																
+	insert into sncategory																																															
+	values(snc_seq.nextval, '습식', '유제품');																																															
+																																																
+	insert into sncategory																																															
+	values(snc_seq.nextval, '습식', '탕/찌개');																																															
+																																																
+	commit;																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+--alcohol																																																
+																																																
+	drop sequence al_seq;																																															
+	create sequence al_seq																																															
+	increment by 1																																															
+	start with 1																																															
+	minvalue 1																																															
+	maxvalue 10000																																															
+	nocache;																																															
+																																																
+	drop table alcohol cascade constraints;																																															
+	create table alcohol(																																															
+		num number primary key,																																														
+		product number, --1(alcohol)/2(snack)																																														
+		name varchar2(300) not null,																																														
+		code number,																																														
+		category varchar2(50), -- 선택한 카테고리																																														
+		brand varchar2(50),																																														
+		country varchar2(50),																																														
+		price number default 0,																																														
+		point number default 0,																																														
+		qty number default 0, -- 수량																																														
+		stock number default 0, -- 재고수량																																														
+		spec varchar2(50), --베스트셀러,스테디셀러																																														
+		heart varchar2(50),																																														
+		content varchar2(700), -- 설명																																														
+		image varchar2(300),																																														
+		input_date date default sysdate,																																														
+		exp_date date, --유통기한																																														
+		delivery number default 3000,																																														
+		contentImage varchar2(300),																																														
+		readcount int default 0, -- 조회수																																														
+		memid varchar2(50), --seller																																														
+		appr number default 1 --0비승인/1승인																																														
+	);																																															
+																																																
+--주류상품	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '우리소주조합 당진소주 메기소주 25도 360ml', al_seq.currval, '소주/증류수', '순성왕매실영농', '대한민국', 6500, 65, 300, '우리소주조합 당진소주 메기소주 25도 360ml', '2021-09-30', '2022-09-30','우리소주조합 당진소주 메기소주 25도 360ml.jpg','우리소주조합 당진소주 메기소주 25도 360ml.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '신안암태주조장 꾸지뽕 생쌀막걸리 6도 750ml', al_seq.currval, '막걸리', '신안암태주조장', '대한민국', 2800, 28, 300, '신안암태주조장 꾸지뽕 생쌀막걸리 6도 750ml', '2023-07-10', '2022-07-31','image02.GIF','contentImage02.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '박흥선 명인 솔송주 13도 700ml', al_seq.currval, '약주/청주', '한주양조', '대한민국', 18000, 180, 300, '박흥선 명인 솔송주 13도 700ml', '2022-06-11', '2024-07-07','image03.GIF','contentImage03.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '우리소주조합 강릉소주 메기소주 25도 360ml', al_seq.currval, '소주/증류수', '우리소주조합', '대한민국', 6500, 65, 300, '우리소주조합 강릉소주 메기소주 25도 360ml', '2020-06-11', '2022-09-30','우리소주조합 강릉소주 메기소주 25도 360ml.jpg','우리소주조합 강릉소주 메기소주 25도 360ml.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '단감명작 7도 750ml', al_seq.currval, '과실주', '우포의아침', '대한민국', 18000, 180, 300, '단감명작 7도 750ml', '2021-09-30', '2022-09-30','단감명작 7도 750ml.jpg','단감명작 7도 750ml.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '보리수헤는밤 8도 375ml', al_seq.currval, '리큐르', '우포의아침', '대한민국', 12000, 120, 300, '보리수헤는밤 8도 375ml', '2021-09-30', '2022-09-30','보리수헤는밤 8도 375ml.jpg','보리수헤는밤 8도 375ml.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '문경 바람 오크 25도 375ml', al_seq.currval, '소주/증류수', '우포의아침', '대한민국', 17600, 176, 300, '문경 바람 오크 25도 375ml', '2021-09-30', '2022-09-30','문경 바람 오크 25도 375ml.jpg','문경 바람 오크 25도 375ml.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '고도리 샤인머스캣 와인 10.5도 750ml', al_seq.currval, '과실주', '우포의아침', '대한민국', 23000, 230, 300, '고도리 샤인머스캣 와인 10.5도 750ml', '2021-09-30', '2022-09-30','고도리 샤인머스캣 와인 10.5도 750ml.jpg','고도리 샤인머스캣 와인 10.5도 750ml.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '한주양조 한주 25도 360ml 증류식 소주', al_seq.currval, '소주/증류수', '한주양조', '대한민국', 10500, 105, 300, '한주양조 한주 25도 360ml 증류식 소주', '2022-05-01', '2024-11-10','image01.GIF','contentImage01.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '삼오전통주 삼천갑자동방주 18도 500ml', al_seq.currval, '소주/증류수', '삼오전통주', '대한민국', 3200, 320, 300, '삼오전통주 삼천갑자동방주 18도 500ml', '2022-06-11', '2024-07-07','삼오전통주 삼천갑자동방주 18도 500ml.GIF','삼오전통주 삼천갑자동방주 18도 500ml.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '서울고량주 오크 40도 375ml', al_seq.currval, '소주/증류수', '한국고량주', '대한민국', 16000, 160, 300, '서울고량주 오크 40도 375ml', '2022-06-11', '2024-07-07','서울고량주 오크 40도 375ml.jpg','서울고량주 오크 40도 375ml.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '병영양조장 병영사또 40도 200ml', al_seq.currval, '소주/증류수', '병영양조장', '대한민국', 22000, 220, 300, '병영양조장 병영사또 40도 200ml', '2020-06-11', '2022-09-30','병영양조장 병영사또 40도 200ml.jpg','병영양조장 병영사또 40도 200ml.jpg');																																															
+																																																
+																																																
+																																																
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '태평주가 진안블랙보리 골드 40도 500ml', al_seq.currval, '소주/증류수', '태평주가', '대한민국', 29000, 290, 300, '태평주가 진안블랙보리 골드 40도 500ml', '2022-06-11', '2024-07-07','태평주가 진안블랙보리 골드 40도 500ml.GIF','태평주가 진안블랙보리 골드 40도 500ml.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '삼오전통주 엄청주 18도 360ml', al_seq.currval, '소주/증류수', '삼오전통주', '대한민국', 8900, 89, 300, '삼오전통주 엄청주 18도 360ml', '2022-06-11', '2024-07-07','삼오전통주 엄청주 18도 360ml.jpg','삼오전통주 엄청주 18도 360ml.jpg');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '몽레브 라바 15도 375ml', al_seq.currval, '리큐르', '영덕주조', '대한민국', 25000, 250, 300, '몽레브 라바 15도 375ml', '2021-09-30', '2022-09-30','몽레브 라바 15도 375ml.GIF','몽레브 라바 15도 375ml.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '영덕주조 도원결의 25도 360ml', al_seq.currval, '리큐르', '영덕주조', '대한민국', 7500, 75, 300, '영덕주조 도원결의 25도 360ml', '2021-09-30', '2022-09-30','영덕주조 도원결의 25도 360ml.GIF','영덕주조 도원결의 25도 360ml.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '미르아토 로제스파클링와인 5도 250ml', al_seq.currval, '과실주', '금용농산', '대한민국', 7000, 75, 300, '미르아토 로제스파클링와인 5도 250ml', '2021-09-30', '2022-09-30','미르아토 로제스파클링와인 5도 250ml.GIF','미르아토 로제스파클링와인 5도 250ml.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '덕유양조 달1614 스위트 12도 750ml', al_seq.currval, '과실주', '덕유양조', '대한민국', 35000, 350, 300, '달1614 스위트 12도 750ml', '2021-09-30', '2022-09-30','덕유양조 달1614 스위트 12도 750ml.GIF','덕유양조 달1614 스위트 12도 750ml.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '과천도가 경기백주 14도 500ml', al_seq.currval, '막걸리', '과천도가', '대한민국', 11000, 110, 300, '과천도가 경기백주 14도 500ml', '2021-09-30', '2022-09-30','과천도가 경기백주 14도 500ml.GIF','과천도가 경기백주 14도 500ml.GIF');																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(al_seq.nextval, 1, '과천도가 관악산생막걸리 6도 1000ml', al_seq.currval, '막걸리', '과천도가', '대한민국', 7500, 75, 300, '과천도가 관악산생막걸리 6도 1000ml', '2021-09-30', '2022-09-30','과천도가 관악산생막걸리 6도 1000ml.GIF','과천도가 관악산생막걸리 6도 1000ml.GIF');																																															
+																																																
+	commit;																																															
+																																																
+--안주 상품	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '바삭은행', al_seq.currval, '건식-견과류', '근산식품', '대한민국', 5900, 59, 300, '고소한 은행의 바삭한 변신', '2022-06-11', '2023-03-07','바삭은행.GIF','바삭은행.GIF','seller1',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '모듬 꼬치 세트', al_seq.currval, '습식-육가공품', '청우푸드', '대한민국', 10900, 109, 100, '집에서 즐기는 근사한 안주', '2022-09-08', '2022-09-20','모듬 꼬치 세트.GIF','모듬 꼬치 세트.GIF','seller2',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '이베리코하몽 슬라이스 60g', al_seq.currval, '습식-육가공품', '이베리코', '스페인', 9370, 93, 300, '부담없이 즐기는 스페인 하몽', '2022-06-11', '2023-03-07','이베리코하몽 슬라이스 60g.GIF','이베리코하몽 슬라이스 60g.GIF','seller3',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '그릭 스타일 치즈 인 오일 2종세트', al_seq.currval, '습식-유제품', '엠보그', '대한민국', 5600, 56, 300, '촉촉한 오일을 입은 치즈', '2022-06-11', '2023-03-07','그릭 스타일 치즈 인 오일 2종세트.GIF','그릭 스타일 치즈 인 오일 2종세트.GIF','seller4',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '땡초 넣은 모듬 조개탕', al_seq.currval, '습식-탕/찌개', '낭만어시장', '대한민국', 12500, 12500, 300, '땡초 넣은 모듬 조개탕', '2022-06-11', '2023-03-07','땡초 넣은 모듬 조개탕.GIF','땡초 넣은 모듬 조개탕.GIF','seller1',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '석쇠로 구은 담백한 아구포 220g', al_seq.currval, '건식-건어물', '주전부리연구소', '대한민국', 10000, 100, 300, '석쇠로 구은 담백한 아구포 220g', '2022-06-11', '2023-03-07','석쇠로 구은 담백한 아구포 220g.GIF','석쇠로 구은 담백한 아구포 220g.GIF','seller2',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '해물탕', al_seq.currval, '습식-탕/찌개', '낭만어시장', '대한민국', 11900, 119, 300, '해물탕', '2022-06-11', '2022-12-07','해물탕.GIF','해물탕.GIF','seller1',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '대구 매운탕', al_seq.currval, '습식-탕/찌개', '낭만어시장', '대한민국', 10900, 109, 300, '대구 매운탕', '2022-06-11', '2022-12-07','대구 매운탕.GIF','대구 매운탕.GIF','seller1',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '통편육 250g', al_seq.currval, '습식-육가공품', '정우푸드', '대한민국', 5900, 59, 300, '통편육 250g', '2022-09-11', '2022-10-17','통편육 250g.GIF','통편육 250g.GIF','seller3',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '살라미 슬라이스 80g', al_seq.currval, '습식-육가공품', '엘포조', '대한민국', 5400, 54, 100, '살라미 슬라이스 80g', '2022-09-08', '2023-03-20','살라미 슬라이스 80g.GIF','살라미 슬라이스 80g.GIF','seller3',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '갈릭 치즈', al_seq.currval, '습식-유제품', '란다나', '대한민국', 8980, 89, 100, '집에서 즐기는 근사한 안주', '2022-09-08', '2022-12-09','갈릭 치즈.GIF','갈릭 치즈.GIF','seller4',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '고기듬뿍 감자탕', al_seq.currval, '습식-탕/찌개', '하이포크', '대한민국', 11900, 119, 300, '고기듬뿍 감자탕', '2022-06-11', '2022-10-07','고기듬뿍 감자탕.GIF','고기듬뿍 감자탕.GIF','seller1',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '국산 내맘속에 굿다리 120g', al_seq.currval, '건식-건어물', '주전부리연구소', '대한민국', 11000, 110, 300, '국산 내맘속에 굿다리 120g', '2022-06-11', '2023-02-07','국산 내맘속에 굿다리 120g.GIF','국산 내맘속에 굿다리 120g.GIF','seller2',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '샌드위치 치즈어포 120g', al_seq.currval, '건식-건어물', '주전부리연구소', '대한민국', 6900, 69, 300, '샌드위치 치즈어포 120g', '2022-06-11', '2022-12-07','샌드위치 치즈어포 120g.GIF','샌드위치 치즈어포 120g.GIF','seller2',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '스낵 믹스팩 320g', al_seq.currval, '건식-견과류', '덴로쿠', '대한민국', 8980, 89, 300, '스낵 믹스팩 320g', '2022-06-11', '2022-10-07','스낵 믹스팩 320g.GIF','스낵 믹스팩 320g.GIF','seller3',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '어묵탕', al_seq.currval, '습식-탕/찌개', '낭만어시장', '대한민국', 7900, 79, 300, '어묵탕', '2022-06-11', '2022-12-07','어묵탕.GIF','어묵탕.GIF','seller1',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '손질 먹태 120g', al_seq.currval, '건식-건어물', '정필강릉지점', '대한민국', 9900, 99, 100, '통먹태로 즐기는 고소한 맛', '2022-04-10', '2022-09-20','손질 먹태 120g.GIF','손질 먹태 120g.GIF','seller1',1);																																															
+																																																
+	insert into alcohol(num, product, name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage,memid,appr)																																															
+	values(al_seq.nextval, 2, '스프레더블 치즈', al_seq.currval, '습식-유제품', '프레지덩', '대한민국', 4900, 49, 100, '스프레더블 치즈', '2022-09-08', '2022-12-11','스프레더블 치즈.GIF','스프레더블 치즈.GIF','seller4',1);																																															
+																																																
+																																																
+	commit;																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+--qna																																																
+	drop sequence q_seq;																																															
+	create sequence q_seq																																															
+	start with 1																																															
+	increment by 1																																															
+	nocache;																																															
+																																																
+	drop table qna cascade constraints;																																															
+	create table qna(																																															
+	num number not null primary key,																																															
+	writer varchar2(100), --작성자, members의 num과 연결																																															
+	cateuser varchar2(100), --구매자/판매자																																															
+	cateopen varchar2(100), --비공개/전체공개																																															
+	cate varchar2(100), --회원/정보관리,배송,반품/환불/교환/AS,영수증/증빙서류,상품/이벤트,기타																																															
+	subject varchar2(100),																																															
+	image varchar2(100),																																															
+	checkimage varchar2(100), --자동 등록 방지 이미지																																															
+	content varchar2(500),																																															
+	reg_date date,																																															
+	readcount number,																																															
+	ref number,																																															
+	re_step number,																																															
+	re_level number,																																															
+	reply varchar2(15)																																															
+	);																																															
+																																																
+	insert into qna(num,writer,cateuser,cateopen,cate,subject,content,reg_date,ref,re_step,re_level,reply,readcount)																																															
+	values(q_seq.nextval,'kim','구매자','전체공개','반품/환불/교환/AS','환불 신청합니다.','환불해 주세요',sysdate,q_seq.currval,0,0,'답변완료',5);																																															
+	insert into qna(num,writer,cateuser,cateopen,cate,subject,content,reg_date,ref,re_step,re_level,reply,readcount)																																															
+	values(q_seq.nextval,'char','구매자','전체공개','상품/이벤트','문의드립니다.','유통기한이 언제까지 인가요?',sysdate,q_seq.currval,0,0,'답변완료',3);																																															
+	insert into qna(num,writer,cateuser,cateopen,cate,subject,content,reg_date,ref,re_step,re_level,reply,readcount)																																															
+	values(q_seq.nextval,'kim','구매자','비공개','상품/이벤트','상품 문의합니다.','언제 재입고 되나요?',sysdate,q_seq.currval,0,0,'답변완료',4);																																															
+	insert into qna(num,writer,cateuser,cateopen,cate,subject,content,reg_date,ref,re_step,re_level,reply,readcount)																																															
+	values(q_seq.nextval,'jung','구매자','비공개','배송','문의합니다.','빠른출고바랍니다.',sysdate,q_seq.currval,0,0,'대기중',3);																																															
+	insert into qna(num,writer,cateuser,cateopen,cate,subject,image,content,reg_date,ref,re_step,re_level,reply,readcount)																																															
+	values(q_seq.nextval,'char','구매자','전체공개','상품/이벤트','사은품이 누락된거같습니다.',' 누락.jpg','다 꺼내봤는데 사은품이 없습니다..',sysdate,q_seq.currval,0,0,'대기중',7);																																															
+	insert into qna(num,writer,cateuser,cateopen,cate,subject,content,reg_date,ref,re_step,re_level,reply,readcount)																																															
+	values(q_seq.nextval,'seller1','구매자','비공개','배송','배송지 변경 요청드립니다.','서울시 마포구에서 서울시 구로구로 변경해주세요. 주문번호 829022입니다.',sysdate,q_seq.currval,0,0,'대기중',2);																																															
+	insert into qna(num,writer,cateuser,cateopen,cate,subject,content,image,reg_date,ref,re_step,re_level,reply,readcount)																																															
+	values(q_seq.nextval,'choi','구매자','비공개','반품/환불/교환/AS','제품이 이상합니다.','원래 이렇게 침전물이 많나요?.','문의 (1).jpg',sysdate,q_seq.currval,0,0,'대기중',3);																																															
+																																																
+	commit;																																															
+																																																
+	col num for a6																																															
+	col writer for a10																																															
+	col cateuser for a10																																															
+	col cateopen for a10																																															
+	col cate for a10																																															
+	col subject for a10																																															
+	col image for a10																																															
+	col checkimage for a10																																															
+	col content for a10																																															
+	col reg_date for a10																																															
+	col readcount for a10																																															
+	col ref for a10																																															
+	col re_step for a20																																															
+	col re_level for a20																																															
+	col reply for a20																																															
+																																																
+	select * from qna;																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+-- notice																																																
+	drop sequence nseq;																																															
+	create sequence nseq																																															
+	start with 1																																															
+	increment by 1																																															
+	nocache;																																															
+																																																
+	drop table notice cascade constraints;																																															
+	create table notice(																																															
+		num number not null primary key,																																														
+		writer varchar2(50) not null,																																														
+		subject varchar2(100) not null,																																														
+		cate varchar2(50) not null, -- radio																																														
+		cateopen varchar2(50) default '전체공개',																																														
+		reg_date date default sysdate,																																														
+		readcount number default 0, -- 조회수																																														
+		content varchar2(500),																																														
+		image varchar2(500)																																														
+	);																																															
+																																																
+	insert into notice(num,writer,subject,cate,image)																																															
+	values(nseq.nextval,'admin','술마트 오픈이벤트 참여 안내!! (이벤트종료)','이벤트','이벤트_오픈.jpg');																																															
+	insert into notice(num,writer,subject,cate,image)																																															
+	values(nseq.nextval,'admin1','술마트 특별,우수회원 모집 안내!!(진행중)','공지','공지_회원모집.jpg');																																															
+	insert into notice(num,writer,subject,cate,content,cateopen,image)																																															
+	values(nseq.nextval,'admin2','후원 공지 예정','공지','후원자 안내사항 공지 ( 이미지 완성 후 오픈 )','비공개','후원.jpg');																																															
+	commit;																																															
+																																																
+	col num for a6																																															
+	col writer for a10																																															
+	col subject for a10																																															
+	col cate for a10																																															
+	col cateopen for a10																																															
+	col reg_date for a10																																															
+	col readcount for a10																																															
+	col content for a10																																															
+	col image for a10																																															
+																																																
+	select * from notice;																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+	-- 찜 테이블																																															
+--heart	drop table heart cascade constraints;																																															
+																																																
+	create table heart(																																															
+																																																
+																																																
+		mem_num number not null, --회원 번호																																														
+	);	prod_num number not null, -- 상품번호																																														
+		heart_date  date not null																																														
+	drop sequence heart_seq;																																															
+																																																
+	create sequence heart_seq																																															
+	increment by 1																																															
+	start with 1																																															
+	minvalue 1																																															
+	maxvalue 10000																																															
+	nocache;																																															
+																																																
+	select * from heart;																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+--up	-- 추천 테이블																																															
+	drop sequence up_seq;																																															
+																																																
+	create sequence up_seq																																															
+	increment by 1																																															
+	start with 1																																															
+	minvalue 1																																															
+	maxvalue 10000																																															
+	nocache;																																															
+																																																
+	drop table up cascade constraints;																																															
+	create table up(																																															
+		num number primary key, -- 추천 번호																																														
+		pnum number not null, -- 추천 된 상품 번호																																														
+		up_uid varchar2(50) not null, -- 추천 한 사용자 아이디																																														
+		review_id number																																														
+	);																																															
+																																																
+	"Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (20,3,'1',3);
+Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (21,4,'1',4);
+Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (18,47,'1',47);
+Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (19,1,'1',1);
+Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (23,53,'1',53);
+Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (17,48,'1',48);
+Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (24,57,'1',57);
+Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (22,49,'1',49);
+Insert into UP (NUM,PNUM,UP_UID,REVIEW_ID) values (25,60,'1',60);"																																															
+																																																
+																																																
+																																																
+																																																
+	select * from up;																																															
+																																																
+--리뷰게시판																																																
+--review	drop table review cascade constraints;																																															
+																																																
+	create table review(																																															
+		num number primary key,																																														
+		title varchar2(200) not null,																																														
+		content varchar2(1000) not null,																																														
+		writer varchar2(50) not null,																																														
+		passwd varchar2(50) not null,																																														
+		email varchar2(50),																																														
+		star number not null,																																														
+		reg_date date not null,																																														
+		ref number not null,																																														
+		re_step number not null,																																														
+		re_level number not null,																																														
+		ip varchar2(15) not null,																																														
+		image varchar2(1000),																																														
+		recomm number default 0 not null																																														
+	);																																															
+	drop sequence review_seq ;																																															
+																																																
+	create sequence review_seq																																															
+	increment by 1																																															
+	start with 1																																															
+	minvalue 1																																															
+	maxvalue 10000																																															
+	nocache;																																															
+																																																
+	insert into review (num,title,content,writer,passwd,email,star,reg_date,ref,re_step,re_level,ip,image,recomm) values (1,'좋아요','굿굿굿','a1','1234','sss@sss.com',5,to_date('19/01/01','RR/MM/DD'),1,0,0,'127.0.0.1',null,1);																																															
+	insert into review (num,title,content,writer,passwd,email,star,reg_date,ref,re_step,re_level,ip,image,recomm) values (2,'별로','그냥','a2','5678','ddd@sss.com',2,to_date('19/01/02','RR/MM/DD'),2,0,0,'126.0.0.9',null,0);																																															
+	insert into review (num,title,content,writer,passwd,email,star,reg_date,ref,re_step,re_level,ip,image,recomm) values (3,'그냥그래요','ㅎㅎ','a3','1111','lll@sss.com',3,to_date('22/01/08','RR/MM/DD'),1,6,0,'127.0.0.1',null,1);																																															
+	insert into review (num,title,content,writer,passwd,email,star,reg_date,ref,re_step,re_level,ip,image,recomm) values (4,'괜춘','좋은듯','a4','8989','ggg@sss.com',4,to_date('21/05/01','RR/MM/DD'),1,5,0,'129.0.5.1','asdasd',1);																																															
+	insert into review (num,title,content,writer,passwd,email,star,reg_date,ref,re_step,re_level,ip,image,recomm) values (47,' ','asdasd','admin',' ',' ',5,to_date('22/09/27','RR/MM/DD'),8,0,0,' ',null,2);																																															
+	insert into review (num,title,content,writer,passwd,email,star,reg_date,ref,re_step,re_level,ip,image,recomm) values (60,' ','asdasd','admin',' ',' ',5,to_date('22/09/28','RR/MM/DD'),10,0,0,' ','01_kokmincard.png',1);																																															
+																																																
+																																																
+	select * from  review;																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+	-- reviewcomment 테이블																																															
+																																																
+	drop table reviewcomment;																																															
+																																																
+	create table reviewcomment (																																															
+		idx number primary key,																																														
+		content clob default '',																																														
+		review_id number not null,																																														
+		member_id number not null																																														
+	);																																															
+																																																
+																																																
+	drop sequence reviewcomment_seq;																																															
+	create sequence reviewcomment_seq minvalue 1 maxvalue 10000 increment by 1 start with 3 nocache noorder cycle;																																															
+																																																
+	commit;																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+<-- 안쓰는 테이블 -->																																																
+																																																
+--coupon	drop sequence cou_seq;																																															
+	create sequence cou_seq																																															
+	start with 1																																															
+	increment by 1																																															
+	nocache;																																															
+																																																
+	drop table coupon;																																															
+	create table coupon(																																															
+	num number not null primary key,																																															
+	name varchar2(100),																																															
+	cate varchar2(100), --적용범위(단일상품product/결제가격total)																																															
+	grade varchar2(100), --회원 등급에 따른 구분(green/silver/gold)																																															
+	sale number, --할인률																																															
+	condition varchar2(100), --제한 조건(ex.3만원 이상 상품만)																																															
+	downdate date default sysdate, --다운받은 날짜																																															
+	qty number, --수량																																															
+	use varchar2(20) --사용여부(nouse/use)																																															
+	);																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+--choice	drop sequence cho_seq;																																															
+	create sequence cho_seq																																															
+	start with 1																																															
+	increment by 1																																															
+	nocache;																																															
+																																																
+	drop table choice;																																															
+	create table choice(																																															
+	num																																															
+	q1 int,																																															
+	q2 int,																																															
+	q3 int																																															
+	);																																															
+																																																
+	insert into choice values(cho_seq.nextval,1,1,1);																																															
+	insert into choice values(cho_seq.nextval,1,2,1);																																															
+	insert into choice values(cho_seq.nextval,1,1,2);																																															
+																																																
+	insert into choice values(cho_seq.nextval,2,1,1);																																															
+	insert into choice values(cho_seq.nextval,2,2,1);																																															
+	insert into choice values(cho_seq.nextval,2,1,2);																																															
+																																																
+	insert into choice values(cho_seq.nextval,2,2,1);																																															
+	insert into choice values(cho_seq.nextval,1,2,2);																																															
+	insert into choice values(cho_seq.nextval,2,2,2);																																															
+																																																
+																																																
+																																																
+																																																
+--snack X	drop sequence sn_seq;																																															
+	create sequence sn_seq																																															
+	increment by 1																																															
+	start with 1																																															
+	minvalue 1																																															
+	maxvalue 10000																																															
+	nocache;																																															
+																																																
+	drop table snack cascade constraints;																																															
+	create table snack(																																															
+																																																
+																																																
+		num number primary key,																																														
+		name varchar2(300) not null,																																														
+		code number,																																														
+		category varchar2(100), -- 선택한 카테고리 cate1 cate2																																														
+		brand varchar2(50),																																														
+		country varchar2(50),																																														
+		price number default 0,																																														
+		point number default 0,																																														
+		qty number default 0, -- 수량																																														
+		stock number default 0, -- 재고수량																																														
+		spec varchar2(20),																																														
+		heart varchar2(20),																																														
+		content varchar2(700), -- 설명																																														
+		image varchar2(300),																																														
+		input_date date default sysdate,																																														
+		exp_date date, --유통기한																																														
+	);	delivery number default 3000,																																														
+	insert into snack(num,name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)	contentImage varchar2(300)																																														
+	values(sn_seq.nextval, '손질 먹태 120g', sn_seq.currval, '건식 건어물', '정필강릉지점', '대한민국', 9900, 99, 100, '통먹태로 즐기는 고소한 맛', '2022-04-10', '2022-10-31','손질 먹태 120g.GIF','손질 먹태 120g.GIF');																																															
+																																																
+	insert into snack(num,name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(sn_seq.nextval, '모듬 꼬치 세트', sn_seq.currval, '습식 육가공품', '청우푸드', '대한민국', 10900, 109, 100, '집에서 즐기는 근사한 안주', '2022-09-08', '2022-09-20','모듬 꼬치 세트.GIF','모듬 꼬치 세트.GIF');																																															
+																																																
+	insert into snack(num,name,code,category,brand,country,price,point,stock,content,input_date,exp_date,image,contentImage)																																															
+	values(sn_seq.nextval, '미니모짜렐라 120g', sn_seq.currval, '습식 유제품', '탈리푸드', '대한민국', 5300, 53, 100, '포크로 콕 찍어 즐기는 프레시 치즈', '2022-09-01', '2022-10-28','미니모짜렐라 120g.GIF','미니모짜렐라 120g.GIF');																																															
+	values(sn_seq.nextval, '미니모짜렐라 120g', sn_seq.currval, '습식 유제품', '탈리푸드', '대한민국', 5300, 53, 100, '포크로 콕 찍어 즐기는 프레시 치즈', '2022-09-01', '2022-10-28');																																															
+																																																
+	insert 테이블 명 snack으로 수정 했습니다.																																															
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
+																																																
