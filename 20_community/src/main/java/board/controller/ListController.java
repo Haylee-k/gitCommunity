@@ -41,7 +41,7 @@ public class ListController {
 		int totalCount = boardDao.getTotalCount(map);
 
 		String url = request.getContextPath() + "/"+ command;
-		Paging pageInfo = new Paging(pageNumber,null,totalCount,url,whatColumn,keyword,null);
+		Paging pageInfo = new Paging(pageNumber,"8",totalCount,url,whatColumn,keyword,null);
 		 
 		List<BoardBean> lists = new ArrayList<BoardBean>();
 		lists = boardDao.getAllBoard(pageInfo,map);

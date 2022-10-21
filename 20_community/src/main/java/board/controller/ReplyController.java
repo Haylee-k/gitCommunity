@@ -2,10 +2,12 @@ package board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +40,27 @@ public class ReplyController {
 	@RequestMapping(value=command, method = RequestMethod.GET)
 	public String reply(@RequestParam("num") String num,
 						@RequestParam("pageNumber") String pageNumber,
-						Model model) {
+						@RequestParam("memberId") String memberId,
+						Model model,
+						HttpServletResponse response) throws IOException {
 		
-		model.addAttribute("num", num);
-		model.addAttribute("pageNumber", pageNumber);
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter writer = response.getWriter();
 		
-		return getPage;	
+		BoardBean board = boardDao.getArticle(num);
+		
+		if(memberId.equals(board.getWriter())) {
+			model.addAttribute("num", num);
+			model.addAttribute("pageNumber", pageNumber);
+			
+			return getPage;
+		}else {
+			writer.println("<script> alert('로그인 후 작성가능합니다.'); history.go(-1); </script>");
+			writer.flush();
+		}
+		return getPage;
+		
+	
 	}
 	
 	@RequestMapping(value=command, method = RequestMethod.POST)

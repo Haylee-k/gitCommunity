@@ -62,6 +62,47 @@ public class BoardDao {
 		sqlSessionTemplate.insert(namespace+".InsertReply", board);
 	}
 
+	//댓글
+	public void commentInsert(CommentBean comment) {
+		sqlSessionTemplate.insert(namespace+".CommentInsert", comment);
+		
+	}
+
+	public List<CommentBean> commentList(int bdnum) {
+		List<CommentBean> lists = sqlSessionTemplate.selectList(namespace+".CommentList" , bdnum);
+		return lists;
+	}
+
+
+	public void commentUpdate(CommentBean comment) {
+		System.out.println("commentUpdate2 :");
+/*		System.out.println(comment.getBdnum());
+		System.out.println(comment.getRenum());
+		System.out.println(comment.getWriter());
+		System.out.println(comment.getContent());
+		System.out.println(comment.getReg_date());*/
+		sqlSessionTemplate.update(namespace+".CommentUpdate", comment);		
+	}
+
+	public CommentBean commentGetOneInfo1(String renum) {
+
+		CommentBean comment = sqlSessionTemplate.selectOne(namespace+".CommentGetOneInfo1", renum);
+		
+		System.out.println("일단 수정 renum dao:"+renum);
+/*		System.out.println(comment.getBdnum());
+		System.out.println(comment.getRenum());
+		System.out.println(comment.getWriter());
+		System.out.println(comment.getContent());
+		System.out.println(comment.getReg_date());*/
+		return comment;
+	}
+
+	public void commentDelete(String renum) {
+		sqlSessionTemplate.delete(namespace+".CommentDelete", renum);		
+	}
+
+
+
 	
 
 

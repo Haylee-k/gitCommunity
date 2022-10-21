@@ -68,9 +68,34 @@
 		#{re_step}+1,#{re_level}+1,#{image},#{sports},#{content},#{ip})
 	</insert>
 	
+	<!-- 댓글 -->
+	<insert id="CommentInsert">
+		insert into re
+		values(re_seq.nextval,#{bdnum},#{writer},sysdate,re_seq.currval,#{content})
+	</insert>
 	
+	<select id="CommentList" resultType="board.model.CommentBean">
+		select * from re
+		where bdnum = #{bdnum}
+		order by renum asc
+	</select>
 	
+	<update id="CommentUpdate">
+		update re
+		set content = #{content}
+		where renum = #{renum}
+	</update>
 	
-	
-	
+	<select id="CommentGetOneInfo1" resultType="board.model.CommentBean">
+		select * from re
+		where renum = #{renum} 
+	</select>
+
+	<delete id="CommentDelete">
+		delete re
+		where renum = #{renum}
+	</delete>
 </mapper>
+
+
+

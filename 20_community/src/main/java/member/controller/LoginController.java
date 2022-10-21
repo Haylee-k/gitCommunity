@@ -42,8 +42,9 @@ public class LoginController {
 		if(login != null) {
 			if(member.getPassword().equals(login.getPassword())) {
 				//입력한 member.비밀번호가 원래있던정보에서 일치하는 아이디의 login.비밀번호와 같다면 세션에 저장하기
-				String destination = (String)session.getAttribute("destination");
 				session.setAttribute("loginInfo", login);
+				String destination = (String)session.getAttribute("destination");
+				 
 				
 				if(login.getId().equals("admin")) {
 					//불러온 아이디가 admin이면

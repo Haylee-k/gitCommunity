@@ -13,7 +13,7 @@
   <div class="card-header">Header</div>
   <div class="card-body">
     <h4 class="card-title">Secondary card title</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <p class="card-text">하고싶은거 추천,좋아요,댓글,대댓글 그리고 메인에 최신글 또는 인기글 끌어오기! 등등등...!!!! </p>
   </div>
 </div>
 <div class="card text-white bg-success mb-3" style="max-width: 20rem;">

@@ -147,7 +147,34 @@ commit;
 	
 	
 	
-	
+=======================================================
+
+drop table re;
+
+create table re( 
+	renum number not null primary key, --댓글고유번호
+	bdnum number not null, --게시물고유번호 
+	writer varchar2(20) not null, -- 댓글 작성자
+	reg_date date not null, --작성날짜
+	ref number not null, --댓글의댓글참조
+	content varchar2(70) not null  --댓글 내용
+);
+
+drop sequence re_seq;
+create sequence re_seq
+  increment by 1
+  start with 1
+  minvalue 1
+  maxvalue 10000
+  nocache;
+  
+  
+insert into re(renum,bdnum,writer,reg_date,ref,content)
+values(re_seq.nextval,'23','char','2019-1-1',1,'내용1');
+
+commit;
+
+ select * from re;	
 	
 	
 	

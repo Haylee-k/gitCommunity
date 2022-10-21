@@ -42,6 +42,9 @@ public class InsertController {
 		PrintWriter writer = response.getWriter();
 		
 		if(session.getAttribute("loginInfo")== null ) {
+			//session.setAttribute("destination", "redirect:/detail.prd?num="+product.getNum()+"&pageNumber="+pageNumber); 
+			//넘어오는 값이 있어야 해서 상세보기로 가기! 번호와 페이지넘버를 넘겨줘야 이전의 상세보기로 간다.
+			//return "redirect:/loginForm.mem";
 			writer.println("<script>  alert('로그인 후 이용가능합니다.'); history.go(-1); </script>");
 			writer.flush();
 		}
