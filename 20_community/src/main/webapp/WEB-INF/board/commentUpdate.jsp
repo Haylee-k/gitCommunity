@@ -67,7 +67,7 @@
       
     <input type="submit" value="댓글수정"	class="btn btn-outline-success" style="height: 50px; width:200px; font-size: 18px;" > 
 	<input type="button" value="댓글삭제"	class="btn btn-outline-danger" style="height: 50px; width:200px; font-size: 18px;"
-						OnClick="location.href='CommentDelete.bd?bdnum=${article.num}&pageNumber=${pageNumber}&&renum=${comment.renum }'"> 
+						OnClick="location.href='CommentDelete.bd?bdnum=${comment.bdnum }&pageNumber=${pageNumber}&&renum=${comment.renum }&memberId=${loginInfo.id }'"> 
 	    <br><br>
 	</td>  
 </tr>

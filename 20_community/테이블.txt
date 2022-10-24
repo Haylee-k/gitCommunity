@@ -148,7 +148,11 @@ commit;
 	
 	
 =======================================================
-
+--대댓글 할거면 답글처럼 . 
+	ref number not null,
+	re_step number not null,
+	re_level number not null, 넣었어야 함. 
+	
 drop table re;
 
 create table re( 

@@ -38,7 +38,11 @@ public class CommentDeleteController {
 		CommentBean comment = boardDao.commentGetOneInfo1(renum); 
 		if(memberId.equals(comment.getWriter())) {
 			boardDao.commentDelete(renum);
-			writer.println("<script> alert('댓글이 삭제되었습니다.'); history.go(-1); </script>");
+			//model.addAttribute("pageNumber", pageNumber);
+			//model.addAttribute("num", bdnum);
+			
+			writer.println("<script> alert('댓글이 삭제되었습니다.'); </script>");
+			writer.print("<script>location.href = 'content.bd?num="+bdnum+"&pageNumber="+pageNumber+"'; </script>");
 			writer.flush();
 
 		}else {

@@ -81,7 +81,9 @@
 			추천수 :  ? 
 		</td> -->
 		<td align="center" colspan="1" >			
-			댓글수 :	?
+			댓글수 :	? 
+			
+<!-- //이거는 그러면 테이블을 하나 더 만들고 댓글을 하나 추가할때마다 댓글수가 늘어나도록 했어야 하는듯? 그래야 제목옆에도 댓글수?를 달수있고..-->
 		</td>
 	</tr>	
 
@@ -93,7 +95,7 @@
 	
 	<tr>
 		<td align="center" colspan="5" >			
-			<img height=100 width=100 
+			<img height=300 width=600 
 				src="<%=request.getContextPath()%>/resources/${article.image }">
 			
 		</td>
